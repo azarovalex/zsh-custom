@@ -10,7 +10,7 @@ jj_prompt_info() {
   fi
 
   local change_id
-  change_id=$(jj_prompt_template 'self.change_id().shortest(3)' 2>/dev/null)
+  change_id=$(jj_prompt_template 'self.change_id().shortest()' 2>/dev/null)
 
   if [[ $? -ne 0 ]]; then
     # This is most likely an internal google workspace.
