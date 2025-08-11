@@ -9,11 +9,16 @@ jj_prompt_info() {
     return 1
   fi
 
+  local change_id
+  change_id=$(jj_prompt_template 'self.change_id().shortest(3)' 2>/dev/null)
+
+  if [[ $? -ne 0 ]]; then
+    # This is most likely an internal google workspace.
+    change_id="google"
+  fi
+
   # Assemble the prompt string
-  echo -n "%{$fg_bold[blue]%}jj:(%{$fg[red]%}"
-  echo -n "$(jj_prompt_template 'self.change_id().shortest(3)')"
-  echo -n "%{$fg[blue]%})"
-  echo -n "%{$reset_color%} "
+  echo -n "%{$fg_bold[blue]%}jj:(%{$fg[red]%}${change_id}%{$fg[blue]%})%{$reset_color%} "
   return 0
 }
 
